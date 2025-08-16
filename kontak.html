@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontak — Desa Sumurgintung</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="images/logo.png" alt="Logo Desa" class="logo">
+        <div><h1>Desa Sumurgintung</h1><p>Kecamatan Pagaden Barat, Kabupaten Subang</p></div>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="infografis.html">Infografis</a>
+        <a href="ppid.html">PPID</a>
+        <a href="info.html">Info</a>
+        <a href="layanan.html">Layanan</a>
+        <a href="berita.html">Berita</a>
+        <a href="kontak.html" class="active">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>Kontak Desa Sumurgintung</h2>
+
+        <h3>Alamat Kantor Desa</h3>
+        <p>Desa Sumurgintung, Kecamatan Pagaden Barat, Kabupaten Subang, Jawa Barat, 41252</p>
+        <p><strong>Email:</strong> info@sumurgintung.desa.id<br>
+           <strong>Telepon:</strong> (0260) xxx-xxxx</p>
+        <div id="map" style="height:300px; border-radius:8px;"></div>
+
+        <h3>Kirim Pesan atau Saran</h3>
+        <form>
+          <label>Nama:</label><br><input type="text" required><br>
+          <label>Email atau HP:</label><br><input type="text" required><br>
+          <label>Pesan:</label><br><textarea rows="5" required></textarea><br>
+          <button type="submit">Kirim Pesan</button>
+        </form>
+
+        <!-- FAQ Sederhana -->
+        <h3>Pertanyaan Umum (FAQ)</h3>
+        <ul>
+          <li>Bagaimana cara mengurus surat domisili? – Lewat layanan form di PPID.</li>
+          <li>Jam kunjung kantor desa? – Senin–Jumat, 08.00–15.00 WIB.</li>
+        </ul>
+
+        <!-- Media sosial (jika ada) -->
+        <h3>Media Sosial</h3>
+        <p>
+          Ikuti Instagram: <a href="#" target="_blank">@sumurgintungdesa</a><br>
+          Like Facebook: <a href="#" target="_blank">Desa Sumurgintung</a>
+        </p>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© 2025 Pemdes Sumurgintung</small></div>
+  </footer>
+
+  <script>
+    const map = L.map('map').setView([-6.462222,107.723333],15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ attribution:'© OpenStreetMap contributors' }).addTo(map);
+    L.marker([-6.462222,107.723333]).addTo(map).bindPopup('Kantor Desa Sumurgintung').openPopup();
+  </script>
+</body>
+</html>
+

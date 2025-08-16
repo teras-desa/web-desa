@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infografis — Desa Sumurgintung</title>
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Leaflet.js -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+  /* Tambahan khusus infografis */
+  .chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+  }
+  #map {
+    height: 400px;
+    margin: 2rem auto;
+    max-width: 800px;
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem auto;
+  }
+  .stat-card {
+    background: #f9f9f9;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .stat-card h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #00796b;
+  }
+  .stat-card p {
+    margin: 0.5rem 0 0;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <img src="images/logo.png" alt="Logo Desa">
+      <div>
+        <h1>Desa Sumurgintung</h1>
+        <p>Kecamatan Pagaden Barat, Kabupaten Subang</p>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Beranda</a>
+      <a href="profil.html">Profil</a>
+      <a href="infografis.html" class="active">Infografis</a>
+      <a href="ppid.html">PPID</a>
+      <a href="info.html">Info</a>
+      <a href="layanan.html">Layanan</a>
+      <a href="berita.html">Berita</a>
+      <a href="kontak.html">Kontak</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <h2>Infografis Desa Sumurgintung</h2>
+      <p>Data ringkas penduduk, fasilitas, dan potensi desa.</p>
+
+      <!-- Ringkasan Angka -->
+      <div class="stats">
+        <div class="stat-card">
+          <h3>4.431</h3>
+          <p>Penduduk</p>
+        </div>
+        <div class="stat-card">
+          <h3>5,57</h3>
+          <p>Luas (km²)</p>
+        </div>
+        <div class="stat-card">
+          <h3>788</h3>
+          <p>Jiwa/km²</p>
+        </div>
+        <div class="stat-card">
+          <h3>46</h3>
+          <p>Kelahiran 2020</p>
+        </div>
+        <div class="stat-card">
+          <h3>8</h3>
+          <p>Kematian 2020</p>
+        </div>
+      </div>
+
+      <!-- Grafik Agama -->
+      <div class="chart-container">
+        <canvas id="agamaChart"></canvas>
+      </div>
+
+      <!-- Grafik Fasilitas -->
+      <div class="chart-container">
+        <canvas id="faskesChart"></canvas>
+      </div>
+
+      <!-- Grafik Industri -->
+      <div class="chart-container">
+        <canvas id="industriChart"></canvas>
+      </div>
+
+      <!-- Peta -->
+      <div id="map"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container"><small>© 2025 Pemdes Sumurgintung</small></div>
+</footer>
+
+<script>
+  // Data
+  const agama = [
+    { label: "Islam", value: 4482 },
+    { label: "Kristen", value: 5 }
+  ];
+  const faskes = [
+    { label: "Posyandu", value: 6 },
+    { label: "Pos KB", value: 1 },
+    { label: "Puskesmas", value: 0 },
+    { label: "RS", value: 0 },
+    { label: "Balai Pengobatan", value: 0 }
+  ];
+  const industri = { unit: 23, tenagaKerja: 49 };
+
+  // Chart Agama
+  new Chart(document.getElementById('agamaChart'), {
+    type: 'pie',
+    data: {
+      labels: agama.map(a => a.label),
+      datasets: [{
+        data: agama.map(a => a.value),
+        backgroundColor: ['#4caf50', '#ff9800']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { title: { display: true, text: 'Komposisi Agama' } }
+    }
+  });
+
+  // Chart Faskes
+  new Chart(document.getElementById('faskesChart'), {
+    type: 'bar',
+    data: {
+      labels: faskes.map(f => f.label),
+      datasets: [{
+        label: 'Jumlah',
+        data: faskes.map(f => f.value),
+        backgroundColor: '#2196f3'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { title: { display: true, text: 'Fasilitas Kesehatan' } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+
+  // Chart Industri
+  new Chart(document.getElementById('industriChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Unit Industri', 'Tenaga Kerja'],
+      datasets: [{
+        label: 'Jumlah',
+        data: [industri.unit, industri.tenagaKerja],
+        backgroundColor: '#9c27b0'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { title: { display: true, text: 'Industri Rumah Tangga/UMKM' } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+
+  // Peta Leaflet
+  const map = L.map('map').setView([-6.462222, 107.723333], 15);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Marker
+  L.marker([-6.462222, 107.723333]).addTo(map)
+    .bindPopup('<b>Kantor Desa Sumurgintung</b>').openPopup();
+
+  L.marker([-6.46, 107.72]).addTo(map)
+    .bindPopup('SDN Ciung Wanara');
+
+  L.marker([-6.465, 107.735]).addTo(map)
+    .bindPopup('SDN Sindangsono');
+</script>
+
+</body>
+</html>
+
